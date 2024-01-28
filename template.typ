@@ -56,7 +56,7 @@
   }
   [= Задание #problem_counter.step() #problem_counter.display()#name.]
   block(
-    fill:rgb(250, 250, 255),
+    fill:rgb(240, 240, 255),
     width: 100%,
     inset:8pt,
     radius: 4pt,
@@ -82,18 +82,25 @@
 }
 
 #let answer(type: "answer", body) = {
+  let title = none;
+  if type == "result" {
+    title = [*Итого:*]
+  } else if type == "answer" {
+    title = [*Ответ:*]
+  }
   block(
-    fill: rgb(250, 250, 255),
+    fill: rgb(240, 240, 255),
     width: 100%,
     inset: 8pt,
     radius: 4pt,
     stroke: rgb(31, 31, 199),
-    if type == "result" {
-      [*Итого:* #body]
-    } else if type == "answer" {
-      [*Ответ:* #body]
-    } else {
-      none
-    }
+    [
+      #grid(
+        columns: (auto, 1fr),
+        gutter: 3pt,
+        [#title],
+        [#body],
+      )
+    ] 
   )
 }
