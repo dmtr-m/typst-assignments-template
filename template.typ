@@ -11,7 +11,17 @@
   )
   #set text(
     font: "New Computer Modern",
+    lang: "ru",
   )
+  #set par(
+    justify: true,
+  )
+  #set math.mat(
+    column-gap: .8em,
+    row-gap: .8em,
+  )
+  #show sym.lt.eq: sym.lt.eq.slant
+  #show sym.gt.eq: sym.gt.eq.slant
   #doc
 ]
 
@@ -97,10 +107,12 @@
     [
       #grid(
         columns: (auto, 1fr),
-        gutter: 3pt,
-        [#title],
+        gutter: 7pt,
+        [#set align(top); #title],
         [#body],
       )
     ] 
   )
 }
+
+#let intlim(l, r) = $cases(delim: "|", #h(0pt)^#r, #v(6pt), #h(0pt)_#l)$

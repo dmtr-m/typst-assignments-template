@@ -1,7 +1,7 @@
 #import "template.typ": *
 #let title = "Работа 1"
 #let author = "Имя Фамилия"
-#let course = "Линейная Алгебра и Геоматрия"
+#let course = "Линейная Алгебра и Геометрия"
 #let due_time = "1 января, 00:00"
 #let group = "группа 1"
 #show: footer_header.with(title, author, course, due_time, group)
@@ -38,7 +38,7 @@
   *б)* 6 + 4.
 ]
 #solution[
-  *(а)* $2 + 8 = 10$
+  *(а)* $10 <= 2 + 8 <= 10$
 ]
 #answer[
   10
@@ -58,7 +58,7 @@
   Очевидно, что...\
   Заметим, что...\
   Нетрудно увидеть, что...\
-  #parbreak()
+
   Ч.Т.Д.; Q.E.D.; $qed$
 ]
 #answer(type: "result")[
