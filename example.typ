@@ -40,13 +40,13 @@
 #solution[
   *(а)* $10 <= 2 + 8 <= 10$
 ]
-#answer[
+#answer(no_header: true)[
   10
 ]
 #solution(no_header: true)[
   *(б)* $6 + 4 = 10$
 ]
-#answer[
+#answer(no_header: true)[
   10
 ]
 #pagebreak()

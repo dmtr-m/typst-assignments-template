@@ -70,7 +70,6 @@
     width: 100%,
     inset:8pt,
     radius: 4pt,
-    stroke:rgb(31, 31, 199),
     body
   )
 }
@@ -81,38 +80,39 @@
   } else {
     none
   }
+  line(length: 100%)
   block(
     fill: rgb(240, 255, 240),
     width: 100%,
     inset: 8pt,
     radius: 4pt,
-    stroke: rgb(31, 199, 31),
     body
   )
 }
 
-#let answer(type: "answer", body) = {
+#let answer(type: "answer", no_header: false, body) = {
   let title = none;
   if type == "result" {
-    title = [*Итого:*]
+    title = [Итого:]
   } else if type == "answer" {
-    title = [*Ответ:*]
+    title = [Ответ:]
   }
+  if not no_header {
+    [== #title]
+  }
+  line(length: 100%)
   block(
     fill: rgb(240, 240, 255),
     width: 100%,
     inset: 8pt,
     radius: 4pt,
-    stroke: rgb(31, 31, 199),
-    [
-      #grid(
-        columns: (auto, 1fr),
-        gutter: 7pt,
-        [#set align(top); #title],
-        [#body],
-      )
-    ] 
+    [#body]
   )
 }
 
 #let intlim(l, r) = $cases(delim: "|", #h(0pt)^#r, #v(6pt), #h(0pt)_#l)$
+#let pr = math.op("pr")
+#let ort = math.op("ort")
+#let vol = math.op("vol")
+#let ord = math.op("ord")
+#let Spec = math.op("Spec")
