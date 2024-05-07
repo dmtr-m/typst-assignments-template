@@ -99,8 +99,8 @@
   }
   if not no_header {
     [== #title]
+    line(length: 100%)
   }
-  line(length: 100%)
   block(
     fill: rgb(240, 240, 255),
     width: 100%,
@@ -116,3 +116,16 @@
 #let vol = math.op("vol")
 #let ord = math.op("ord")
 #let Spec = math.op("Spec")
+#let linspan(..args) = {
+  let input = args.pos()
+
+  math.angle.l
+  for i in range(input.len() - 1) {
+    input.at(i)
+    math.comma
+    math.thick
+  }
+  input.at(-1)
+  math.angle.r
+}
+
