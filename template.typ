@@ -7,37 +7,35 @@
       top: 1cm, 
       left: 1cm,
       right: 1cm,
-      bottom: 1.75cm),
+      bottom: 1cm),
   )
   #set text(
-    font: "New Computer Modern",
     lang: "ru",
   )
   #set par(
-    justify: true,
+    justify: false,
   )
   #set math.mat(
     column-gap: .8em,
     row-gap: .8em,
   )
-  #show sym.lt.eq: sym.lt.eq.slant
-  #show sym.gt.eq: sym.gt.eq.slant
+  #show sym.qed: sym.square
+  #show sym.emptyset: sym.nothing
   #doc
 ]
 
 #let footer_header(title, author, course, due_time, group, body) = {
   set page(
-    footer: locate(
-      loc => if (counter(page).at(loc).first()==1){
+    footer: context{
+      let current_page = counter(page).get().first()
+      if current_page == 1 {
         none
       } else {
-        let page_number = counter(page).at(loc).first()
-        let total_pages = counter(page).final(loc).last()
-        line(length: 100%)
-        [Стр. #page_number из #total_pages]
+        let total_pages = counter(page).final().first()
+        [Стр. #current_page из #total_pages]
         [#h(1fr)#author | #course: #title]
       }
-    ),
+    },
   )
   body
 }
@@ -48,14 +46,14 @@
     fill:none
   )
   align(center, text(20pt)[*#course*])
-  align(center, text(17pt)[*#title*])
-  align(center, [Дедлайн: #due_time])
+  align(center, text(16pt)[*#title*])
+  align(center, text(12pt)[Дедлайн: #due_time])
   block(
     height: 30%, 
     fill: none
   )
   align(center, text(16pt)[*#author*])
-  align(center, text(11pt)[*#group*])
+  align(center, text(12pt)[#group])
   pagebreak(weak: false)
   body
 }
@@ -64,12 +62,17 @@
   if name != none {
     name = " (" + name + ")"
   }
-  [= Задание #problem_counter.step() #problem_counter.display()#name.]
+  problem_counter.step()
+  [= Задание #context{problem_counter.display()}#name.]
   block(
     fill:rgb(240, 240, 255),
+    stroke: (
+      top: black,
+      bottom: black,
+    ),
     width: 100%,
     inset:8pt,
-    radius: 4pt,
+
     body
   )
 }
@@ -80,12 +83,14 @@
   } else {
     none
   }
-  line(length: 100%)
   block(
     fill: rgb(240, 255, 240),
+    stroke: (
+      top: black,
+      bottom: black,
+    ),
     width: 100%,
     inset: 8pt,
-    radius: 4pt,
     body
   )
 }
@@ -99,33 +104,39 @@
   }
   if not no_header {
     [== #title]
-    line(length: 100%)
   }
   block(
     fill: rgb(240, 240, 255),
+    stroke: (
+      top: black,
+      bottom: black,
+    ),
     width: 100%,
     inset: 8pt,
-    radius: 4pt,
-    [#body]
+    body
   )
 }
 
 #let intlim(l, r) = $cases(delim: "|", #h(0pt)^#r, #v(6pt), #h(0pt)_#l)$
+#let rk = math.op("rk")
 #let pr = math.op("pr")
 #let ort = math.op("ort")
 #let vol = math.op("vol")
 #let ord = math.op("ord")
 #let Spec = math.op("Spec")
-#let linspan(..args) = {
-  let input = args.pos()
+#let Var = math.op("Var")
+#let Cov = math.op("Cov")
+#let Corr = math.op("Corr")
+#let plim = math.op("plim")
 
+#let linspan(..args) = {
+  let vectors = args.pos()
   math.angle.l
-  for i in range(input.len() - 1) {
-    input.at(i)
+  for i in range(vectors.len() - 1) {
+    vectors.at(i)
     math.comma
     math.thick
   }
-  input.at(-1)
+  vectors.at(-1)
   math.angle.r
 }
-
